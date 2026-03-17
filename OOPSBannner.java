@@ -1,26 +1,22 @@
 public class OOPSBannner {
-    public static void main(String[] args) {
-       
-        String[] o = buildO();
-        String[] p = buildP();
-        String[] s = buildS();
-
-        String[] bannerLines = new String[] {
-            String.join("", o[0], o[0], p[0], s[0]),
-            String.join("", o[1], o[1], p[1], s[1]),
-            String.join("", o[2], o[2], p[2], s[2]),
-            String.join("", o[3], o[3], p[3], s[3]),
-            String.join("", o[4], o[4], p[4], s[4]),
-            String.join("", o[5], o[5], p[5], s[5]),
-            String.join("", o[6], o[6], p[6], s[6])
-        };
+    
+    public static class CharacterPatternMap {
+        private char character;
+        private String[] pattern;
         
-
-        for (String line : bannerLines) {
-            System.out.println(line);
+        public CharacterPatternMap(char character, String[] pattern) {
+            this.character = character;
+            this.pattern = pattern;
+        }
+        
+        public char getCharacter() {
+            return character;
+        }
+        
+        public String[] getCharacterPattern() {
+            return pattern;
         }
     }
-
     
     private static String[] buildO() {
         return new String[] {
@@ -34,7 +30,6 @@ public class OOPSBannner {
         };
     }
 
-    
     private static String[] buildP() {
         return new String[] {
             String.join("", "******", " "),
@@ -47,7 +42,6 @@ public class OOPSBannner {
         };
     }
 
-    
     private static String[] buildS() {
         return new String[] {
             String.join("", "   ", "*******", "  "),
@@ -58,5 +52,24 @@ public class OOPSBannner {
             String.join("", "       ", "**", " "),
             String.join("", " ", "*******", " ")
         };
+    }
+
+    public static void main(String[] args) {
+        CharacterPatternMap patternO = new CharacterPatternMap('O', buildO());
+        CharacterPatternMap patternO2 = new CharacterPatternMap('O', buildO());
+        CharacterPatternMap patternP = new CharacterPatternMap('P', buildP());
+        CharacterPatternMap patternS = new CharacterPatternMap('S', buildS());
+
+        CharacterPatternMap[] characters = {patternO, patternO2, patternP, patternS};
+
+        for (int lineIndex = 0; lineIndex < 7; lineIndex++) {
+            StringBuilder bannerLine = new StringBuilder();
+            
+            for (CharacterPatternMap charPattern : characters) {
+                bannerLine.append(charPattern.getCharacterPattern()[lineIndex]);
+            }
+            
+            System.out.println(bannerLine.toString());
+        }
     }
 }
